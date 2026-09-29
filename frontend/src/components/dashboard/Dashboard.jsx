@@ -33,6 +33,7 @@ import {
 } from "recharts";
 
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Dashboard.css";
 
 const trendData = [
@@ -94,6 +95,7 @@ const patterns = [
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <div className="silent-spiral">
@@ -131,20 +133,20 @@ function Dashboard() {
 
           <p className="nav-heading">SPACE</p>
 
-          <a className="nav-item active">
+          <Link className={`nav-item ${location.pathname === "/" ? "active" : ""}`} to="/">
             <Home size={19} />
             <span>Dashboard</span>
-          </a>
+          </Link>
 
           <a className="nav-item">
             <PenLine size={19} />
             <span>Journal</span>
           </a>
 
-          <a className="nav-item">
+          <Link className={`nav-item ${location.pathname === "/check-in" ? "active" : ""}`} to="/check-in">
             <Smile size={19} />
             <span>Check-in</span>
-          </a>
+          </Link>
 
           <p className="nav-heading patterns-heading">MY PATTERNS</p>
 
