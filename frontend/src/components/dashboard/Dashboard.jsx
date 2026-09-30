@@ -33,7 +33,8 @@ import {
 } from "recharts";
 
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import "./Dashboard.css";
 
 const trendData = [
@@ -76,6 +77,7 @@ const patterns = [
     description:
       "Mentions of deadlines and workload frequently appear alongside lower focus.",
     className: "purple",
+    path: "/changes",
   },
   {
     icon: Moon,
@@ -83,6 +85,7 @@ const patterns = [
     description:
       "Lower sleep duration and lower energy have appeared together in recent entries.",
     className: "blue",
+    path: "/themes",
   },
   {
     icon: UserRound,
@@ -90,12 +93,12 @@ const patterns = [
     description:
       "Positive emotional language appears more often around social activities.",
     className: "green",
+    path: "/themes",
   },
 ];
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const location = useLocation();
 
   return (
     <div className="silent-spiral">
@@ -133,59 +136,101 @@ function Dashboard() {
 
           <p className="nav-heading">SPACE</p>
 
-          <Link className={`nav-item ${location.pathname === "/" ? "active" : ""}`} to="/">
+          <Link
+            to="/"
+            className="nav-item active"
+            onClick={() => setSidebarOpen(false)}
+          >
             <Home size={19} />
             <span>Dashboard</span>
           </Link>
 
-          <a className="nav-item">
+          <Link
+            to="/journal"
+            className="nav-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <PenLine size={19} />
             <span>Journal</span>
-          </a>
+          </Link>
 
-          <Link className={`nav-item ${location.pathname === "/check-in" ? "active" : ""}`} to="/check-in">
+          <Link
+            to="/check-in"
+            className="nav-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <Smile size={19} />
             <span>Check-in</span>
           </Link>
 
           <p className="nav-heading patterns-heading">MY PATTERNS</p>
 
-          <a className="nav-item sub-item">
+          {/* WHAT CHANGED */}
+          <Link
+            to="/changes"
+            className="nav-item sub-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <GitBranch size={18} />
             <span>What Changed?</span>
-          </a>
+          </Link>
 
-          <a className="nav-item sub-item">
+          {/* RECURRING THEMES */}
+          <Link
+            to="/themes"
+            className="nav-item sub-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <Heart size={18} />
             <span>Recurring Themes</span>
-          </a>
+          </Link>
 
-          <a className="nav-item sub-item">
+          <Link
+            to="/relationships"
+            className="nav-item sub-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <Link2 size={18} />
             <span>Relationships</span>
-          </a>
+          </Link>
 
           <p className="nav-heading">EXPLORE</p>
 
-          <a className="nav-item">
+          <Link
+            to="/insights"
+            className="nav-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <TrendingUp size={19} />
             <span>Insights</span>
-          </a>
+          </Link>
 
-          <a className="nav-item">
+          <Link
+            to="/reflection"
+            className="nav-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <Sparkles size={19} />
             <span>Reflection</span>
-          </a>
+          </Link>
 
-          <a className="nav-item">
+          <Link
+            to="/timeline"
+            className="nav-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <Clock3 size={19} />
             <span>Timeline</span>
-          </a>
+          </Link>
 
-          <a className="nav-item">
+          <Link
+            to="/settings"
+            className="nav-item"
+            onClick={() => setSidebarOpen(false)}
+          >
             <Settings size={19} />
             <span>Settings</span>
-          </a>
+          </Link>
 
         </nav>
 
@@ -342,10 +387,10 @@ function Dashboard() {
 
                   </div>
 
-                  <button className="view-button">
+                  <Link to="/insights" className="view-button">
                     View Details
                     <ChevronRight size={15} />
-                  </button>
+                  </Link>
 
                 </div>
 
@@ -358,6 +403,7 @@ function Dashboard() {
                   </div>
 
                   <ResponsiveContainer width="100%" height={285}>
+
                     <AreaChart data={trendData}>
 
                       <defs>
@@ -378,6 +424,7 @@ function Dashboard() {
                             offset="100%"
                             stopOpacity={0}
                           />
+
                         </linearGradient>
 
                       </defs>
@@ -439,6 +486,7 @@ function Dashboard() {
                       />
 
                     </AreaChart>
+
                   </ResponsiveContainer>
 
                 </div>
@@ -477,6 +525,7 @@ function Dashboard() {
                 <div className="pattern-grid">
 
                   {patterns.map((pattern) => {
+
                     const Icon = pattern.icon;
 
                     return (
@@ -493,13 +542,14 @@ function Dashboard() {
 
                         <p>{pattern.description}</p>
 
-                        <button>
+                        <Link to={pattern.path} className="pattern-explore">
                           Explore
                           <ChevronRight size={14} />
-                        </button>
+                        </Link>
 
                       </article>
                     );
+
                   })}
 
                 </div>
@@ -526,10 +576,10 @@ function Dashboard() {
 
                   </div>
 
-                  <button className="view-button">
+                  <Link to="/timeline" className="view-button">
                     View Full Timeline
                     <ChevronRight size={15} />
-                  </button>
+                  </Link>
 
                 </div>
 
@@ -583,6 +633,7 @@ function Dashboard() {
 
                 <div>
                   <strong>Your story matters.</strong>
+
                   <p>
                     This space is for you — to understand, reflect and grow,
                     at your own pace.
@@ -615,7 +666,11 @@ function Dashboard() {
                     const Icon = item.icon;
 
                     return (
-                      <div className="quick-insight" key={index}>
+                      <Link
+                        to="/insights"
+                        className="quick-insight"
+                        key={index}
+                      >
 
                         <div className={`insight-icon insight-${index}`}>
                           <Icon size={18} />
@@ -628,16 +683,20 @@ function Dashboard() {
 
                         <ChevronRight size={16} />
 
-                      </div>
+                      </Link>
                     );
+
                   })}
 
                 </div>
 
-                <button className="all-patterns-button">
+                <Link
+                  to="/themes"
+                  className="all-patterns-button"
+                >
                   View All Patterns
                   <ChevronRight size={15} />
-                </button>
+                </Link>
 
               </section>
 
@@ -645,13 +704,17 @@ function Dashboard() {
               <section className="side-panel">
 
                 <div className="side-title">
+
                   <TrendingUp size={19} />
+
                   <div>
                     <h2>Pattern Change Index</h2>
+
                     <p>
                       How much your recent patterns differ from your baseline
                     </p>
                   </div>
+
                 </div>
 
                 <div className="change-list">
@@ -693,6 +756,14 @@ function Dashboard() {
 
                 </div>
 
+                <Link
+                  to="/changes"
+                  className="all-patterns-button"
+                >
+                  See What Changed
+                  <ChevronRight size={15} />
+                </Link>
+
               </section>
 
               {/* REFLECTION */}
@@ -709,24 +780,30 @@ function Dashboard() {
                     <div className="plant-face">
                       •ᴗ•
                     </div>
+
                     <span>🌿</span>
                   </div>
 
                   <div className="reflection-bubble">
+
                     You've mentioned feeling mentally tired and overwhelmed
                     in your recent entries.
 
                     <strong>
                       What has been taking most of your mental space lately?
                     </strong>
+
                   </div>
 
                 </div>
 
-                <button className="reflection-button">
+                <Link
+                  to="/reflection"
+                  className="reflection-button"
+                >
                   Start Reflecting
                   <ChevronRight size={16} />
-                </button>
+                </Link>
 
               </section>
 
@@ -743,7 +820,9 @@ function Dashboard() {
 }
 
 
-/* COMPONENTS */
+/* =========================================================
+   COMPONENTS
+========================================================= */
 
 function StatCard({
   icon,
@@ -821,14 +900,19 @@ function ChangeBar({ name, value, width, type }) {
 
       <div className="change-header">
         <span>{name}</span>
-        <strong className={type}>{value}</strong>
+
+        <strong className={type}>
+          {value}
+        </strong>
       </div>
 
       <div className="change-track">
+
         <div
           className={`change-fill ${type}`}
           style={{ width }}
         />
+
       </div>
 
     </div>
