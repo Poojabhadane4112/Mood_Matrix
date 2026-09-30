@@ -42,14 +42,14 @@ The results are presented through dashboards, visualizations, insights, and refl
 
 ## Key Features
 
-📝 Natural-Language Check-in – Describe experiences in your own words.
-📔 Journal – Record personal reflections and experiences.
-🔄 What Changed? – Explore noticeable changes in recent reflections.
-🔁 Recurring Themes – Identify topics appearing repeatedly.
-🤝 Relationships – Explore connections between different aspects of daily life.
-📊 Dashboard – View trends, activity, patterns, and summaries.
-🧠 Personal Baseline – Compare new observations with the user's own history.
-💡 Insights – Present reflection-oriented observations from collected data.
+ Natural-Language Check-in – Describe experiences in your own words.
+ Journal – Record personal reflections and experiences.
+ What Changed? – Explore noticeable changes in recent reflections.
+ Recurring Themes – Identify topics appearing repeatedly.
+ Relationships – Explore connections between different aspects of daily life.
+ Dashboard – View trends, activity, patterns, and summaries.
+ Personal Baseline – Compare new observations with the user's own history.
+ Insights – Present reflection-oriented observations from collected data.
 
 ## Project Structure
 
@@ -73,9 +73,6 @@ Mood_Matrix/
 │   ├── package.json
 │   └── vite.config.js
 │
-├── backend/
-├── NLP/
-├── pattern-engine/
 └── README.md
 
 ## Technologies used
